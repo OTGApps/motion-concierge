@@ -30,16 +30,17 @@ class MotionConcierge
     end
 
     def fetch
+      check_interval = debug? ? (@_debug_fetch_interval || @_fetch_interval) : @_fetch_interval
+      time_offset = Time.now.to_i - check_interval
+
       if debug?
         puts "Fetching data from: #{@_remote_file_url}"
         puts " Saving it to: #{local_file_name}"
-        puts " Every #{@_debug_fetch_interval || @_fetch_interval} seconds"
+        puts " Every #{check_interval} seconds"
       end
 
-      check_interval = debug? ? (@_debug_fetch_interval || @_fetch_interval) : @_fetch_interval
-
-      if last_fetch < Time.now.to_i - check_interval
-        puts "Data is old. Downloading new data file." if debug?
+      if last_fetch < time_offset
+        puts "Data is #{time_offset} seconds old.\nDownloading new data file." if debug?
         AFMotion::HTTP.get(@_remote_file_url) do |result|
           if result.success?
             puts 'Got successful result from server.' if debug?
