@@ -5,6 +5,10 @@ class MotionConcierge
       @_local_file_name = file_name
     end
 
+    def local_file_name
+      @_local_file_name || @_remote_file_url.split("/").last
+    end
+
     def remote_file_url=(url)
       @_remote_file_url = url
     end
@@ -18,13 +22,13 @@ class MotionConcierge
     end
 
     def downloaded_file_exists?
-      @_local_file_name.document_path.file_exists?
+      local_file_name.document_path.file_exists?
     end
 
     def fetch
       if debug?
         puts "Fetching data from: #{@_remote_file_url}"
-        puts " Saving it to: #{@_local_file_name}"
+        puts " Saving it to: #{local_file_name}"
         puts " Every #{@_fetch_interval} seconds"
       end
 
@@ -35,7 +39,7 @@ class MotionConcierge
         AFMotion::HTTP.get(@_remote_file_url) do |result|
           if result.success?
             puts 'Got successful result from server.' if debug?
-            result.object.write_to(@_local_file_name.document_path)
+            result.object.write_to(local_file_name.document_path)
             last_fetch = Time.now.to_i
             NSNotificationCenter.defaultCenter.postNotificationName("MotionConciergeNewDataReceived", object:self)
           else
