@@ -1,15 +1,15 @@
 # -*- encoding: utf-8 -*-
-VERSION = "1.0"
+VERSION = "0.0.1"
 
 Gem::Specification.new do |spec|
   spec.name          = "motion-concierge"
   spec.version       = VERSION
   spec.authors       = ["Mark Rickert"]
   spec.email         = ["mjar81@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
-  spec.license       = ""
+  spec.description   = "motion-concierge is your personal data concierge!. Just provide a file name, and network url, and set up some basic rules regarding when to download the data and the concierge will automatically fetch your data for you from the web!"
+  spec.summary       = "motion-concierge is your personal data concierge!"
+  spec.homepage      = "https://github.com/OTGApps/motion-concierge"
+  spec.license       = "MIT"
 
   files = []
   files << 'README.md'
