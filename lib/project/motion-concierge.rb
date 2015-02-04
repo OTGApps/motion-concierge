@@ -33,10 +33,10 @@ class MotionConcierge
       if debug?
         puts "Fetching data from: #{@_remote_file_url}"
         puts " Saving it to: #{local_file_name}"
-        puts " Every #{@_fetch_interval} seconds"
+        puts " Every #{@_debug_fetch_interval || @_fetch_interval} seconds"
       end
 
-      check_interval = debug? ? (@_debug_fetch_interval || 30) : @_fetch_interval
+      check_interval = debug? ? (@_debug_fetch_interval || @_fetch_interval) : @_fetch_interval
 
       if last_fetch < Time.now.to_i - check_interval
         puts "Data is old. Downloading new data file." if debug?
