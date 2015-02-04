@@ -26,7 +26,11 @@ def application(application, didFinishLaunchingWithOptions:launchOptions)
     # Set up motion-concierge
     MotionConcierge.local_file_name = 'my_data_file.json'
     MotionConcierge.remote_file_url = 'http://whatever.com/my_data_file.json'
-    MotionConcierge.fetch_interval = 86400
+    MotionConcierge.fetch_interval = 86400 # Once a day
+    # You can put it in debug mode too!
+    MotionConcierge.debug = true
+    MotionConcierge.debug_fetch_interval = 30 # Every 30 seconds
+
 
     # Something else here
 end
