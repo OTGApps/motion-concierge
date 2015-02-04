@@ -44,7 +44,7 @@ class MotionConcierge
           if result.success?
             puts 'Got successful result from server.' if debug?
             result.object.write_to(local_file_path)
-            last_fetch = Time.now.to_i
+            self.last_fetch = Time.now.to_i
             NSNotificationCenter.defaultCenter.postNotificationName("MotionConciergeNewDataReceived", object:self)
           else
             if debug?
