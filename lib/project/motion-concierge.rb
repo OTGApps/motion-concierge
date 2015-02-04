@@ -21,8 +21,12 @@ class MotionConcierge
       @_debug_fetch_interval = interval
     end
 
+    def local_file_path
+      local_file_name.document_path
+    end
+
     def downloaded_file_exists?
-      local_file_name.document_path.file_exists?
+      local_file_path.file_exists?
     end
 
     def fetch
@@ -39,7 +43,7 @@ class MotionConcierge
         AFMotion::HTTP.get(@_remote_file_url) do |result|
           if result.success?
             puts 'Got successful result from server.' if debug?
-            result.object.write_to(local_file_name.document_path)
+            result.object.write_to(local_file_path)
             last_fetch = Time.now.to_i
             NSNotificationCenter.defaultCenter.postNotificationName("MotionConciergeNewDataReceived", object:self)
           else
