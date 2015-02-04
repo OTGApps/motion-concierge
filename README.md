@@ -1,0 +1,62 @@
+# motion-concierge
+
+motion-concierge is your personal data concierge! Just provide a file name, and network url, and set up some basic rules regarding when to download the data and the concierge will automatically fetch your data for you from the web!
+
+## Installation
+
+Add this line to your application's Gemfile:
+
+    gem 'motion-concierge'
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install motion-concierge
+
+## Usage
+
+```ruby
+# You configure motion-concierge when the app first launches:
+def application(application, didFinishLaunchingWithOptions:launchOptions)
+    # Something here
+
+    # Set up motion-concierge
+    MotionConcierge.local_file_name = 'my_data_file.json'
+    MotionConcierge.remote_file_url = 'http://whatever.com/my_data_file.json'
+    MotionConcierge.fetch_interval = 86400
+
+    # Something else here
+end
+
+# Then make sure to check for the data each time the app is launched
+def applicationDidBecomeActive(application)
+    # Check for new data is necessary
+    MotionConcierge.fetch
+end
+
+```
+
+That's it! From now on, every day (86400 seconds) when the app is launched, or comes back into the foreground, motion-concierge will check to see if it should download new data and then fire off a notification once it's recieved the data and saved it to disk so that you can listen for the event and refresh your interface as necessary.
+
+Here's how you'd lisetn for the event:
+
+```ruby
+def listen_for_new_data
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"reload_data", name:"MotionConciergeNewDataReceived", object:nil)
+end
+
+def reload_data(notification)
+    puts "Got new data!"
+end
+```
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
