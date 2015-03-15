@@ -16,6 +16,10 @@ Or install it yourself as:
 
     $ gem install motion-concierge
 
+After installing, you'll need to install the needed pods:
+
+    $ [bundle exec] rake pod:install
+
 ## Usage
 
 ```ruby
