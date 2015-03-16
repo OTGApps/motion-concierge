@@ -16,6 +16,10 @@ Or install it yourself as:
 
     $ gem install motion-concierge
 
+After installing, you'll need to install the needed pods:
+
+    $ [bundle exec] rake pod:install
+
 ## Usage
 
 ```ruby
@@ -45,7 +49,7 @@ end
 
 That's it! From now on, every day (86400 seconds) when the app is launched, or comes back into the foreground, motion-concierge will check to see if it should download new data and then fire off a notification once it's recieved the data and saved it to disk so that you can listen for the event and refresh your interface as necessary.
 
-Here's how you'd lisetn for the event:
+Here's how you'd listen for the event:
 
 ```ruby
 def listen_for_new_data
@@ -55,6 +59,12 @@ end
 def reload_data(notification)
     puts "Got new data!"
 end
+```
+
+You can use the local file easily!
+```ruby
+puts 'The file is located here: ' + MotionConcierge.local_file_path
+puts 'The file contents are: ' + MotionConcierge.local_file_string
 ```
 
 ## Contributing
