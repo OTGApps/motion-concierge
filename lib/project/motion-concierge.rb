@@ -26,7 +26,7 @@ class MotionConcierge
     end
 
     def local_file_string
-      String.new(NSString.stringWithContentsOfFile(local_file_path))
+      NSString.stringWithContentsOfFile(local_file_path)
     end
 
     def downloaded_file_exists?
