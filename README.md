@@ -56,7 +56,7 @@ Here's how you'd listen for the event:
 
 ```ruby
 def listen_for_new_data
-    NSNotificationCenter.defaultCenter.addObserver(self, selector:"reload_data", name:"MotionConciergeNewDataReceived", object:nil)
+    NSNotificationCenter.defaultCenter.addObserver(self, selector:"reload_data:", name:"MotionConciergeNewDataReceived", object:nil)
 end
 
 def reload_data(notification)
