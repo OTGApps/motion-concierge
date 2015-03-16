@@ -1,5 +1,7 @@
 class AppDelegate
   def application(application, didFinishLaunchingWithOptions:launchOptions)
+    return true if RUBYMOTION_ENV == 'test'
+
     mp "Configuring MotionConcierge"
     MotionConcierge.local_file_name = 'dropzones.geojson'
     MotionConcierge.remote_file_url = "https://raw.githubusercontent.com/OTGApps/USPADropzones/master/dropzones.geojson"
