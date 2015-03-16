@@ -13,12 +13,24 @@ class MotionConcierge
       @_remote_file_url = url
     end
 
+    def remote_file_url
+      @_remote_file_url
+    end
+
     def fetch_interval=(interval)
       @_fetch_interval = interval
     end
 
+    def fetch_interval
+      @_fetch_interval
+    end
+
     def debug_fetch_interval=(interval)
       @_debug_fetch_interval = interval
+    end
+
+    def debug_fetch_interval
+      @_debug_fetch_interval
     end
 
     def local_file_path
@@ -33,17 +45,26 @@ class MotionConcierge
       local_file_path.file_exists?
     end
 
-    def fetch
-      check_interval = debug? ? (@_debug_fetch_interval || @_fetch_interval) : @_fetch_interval
-      time_offset = Time.now.to_i - check_interval
+    def check_interval
+      debug? ? (@_debug_fetch_interval || @_fetch_interval) : @_fetch_interval
+    end
 
+    def time_offset
+      Time.now.to_i - self.check_interval
+    end
+
+    def should_fetch?
+      last_fetch < time_offset
+    end
+
+    def fetch
       if debug?
         puts "Fetching data from: #{@_remote_file_url}"
         puts " Saving it to: #{local_file_name}"
         puts " Every #{check_interval} seconds"
       end
 
-      if last_fetch < time_offset
+      if should_fetch?
         puts "Data is #{time_offset} seconds old.\nDownloading new data file." if debug?
         AFMotion::HTTP.get(@_remote_file_url) do |result|
           if result.success?
@@ -81,7 +102,7 @@ class MotionConcierge
     end
 
     def debug?
-      @_debug
+      @_debug || false
     end
   end
 end
