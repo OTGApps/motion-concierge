@@ -22,5 +22,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency "motion-cocoapods", "~> 1.7"
   spec.add_dependency "afmotion", "~> 2.5"
   spec.add_development_dependency "rake", "~> 10.0", "> 10.0"
-  spec.add_development_dependency "motion_print", "~> 0", "> 0"
 end
