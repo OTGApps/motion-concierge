@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     motion-concierge (0.0.1)
-      afmotion
-      motion-cocoapods
+      afmotion (~> 2.5)
+      motion-cocoapods (~> 1.7)
 
 GEM
   remote: https://rubygems.org/
@@ -72,5 +72,5 @@ DEPENDENCIES
   afmotion
   motion-cocoapods
   motion-concierge!
-  motion_print
-  rake
+  motion_print (~> 0, > 0)
+  rake (~> 10.0, > 10.0)
