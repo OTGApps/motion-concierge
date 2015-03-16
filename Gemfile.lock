@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    motion-concierge (0.0.1)
+    motion-concierge (0.0.2)
       afmotion (~> 2.5)
       motion-cocoapods (~> 1.7)
 
