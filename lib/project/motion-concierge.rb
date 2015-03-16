@@ -25,6 +25,10 @@ class MotionConcierge
       local_file_name.document_path
     end
 
+    def local_file_string
+      NSString.stringWithContentsOfFile(local_file_path)
+    end
+
     def downloaded_file_exists?
       local_file_path.file_exists?
     end
