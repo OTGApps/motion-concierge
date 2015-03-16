@@ -22,7 +22,7 @@ class MotionConcierge
     end
 
     def fetch_interval
-      @_fetch_interval
+      @_fetch_interval || 86400
     end
 
     def debug_fetch_interval=(interval)
@@ -30,7 +30,7 @@ class MotionConcierge
     end
 
     def debug_fetch_interval
-      @_debug_fetch_interval
+      @_debug_fetch_interval || 30
     end
 
     def local_file_path
@@ -46,11 +46,11 @@ class MotionConcierge
     end
 
     def check_interval
-      debug? ? (@_debug_fetch_interval || @_fetch_interval) : @_fetch_interval
+      debug? ? debug_fetch_interval : fetch_interval
     end
 
     def time_offset
-      Time.now.to_i - self.check_interval
+      Time.now.to_i - check_interval
     end
 
     def should_fetch?
@@ -70,7 +70,7 @@ class MotionConcierge
           if result.success?
             puts 'Got successful result from server.' if debug?
             result.object.write_to(local_file_path)
-            self.last_fetch = Time.now.to_i
+            last_fetch = Time.now.to_i
             NSNotificationCenter.defaultCenter.postNotificationName("MotionConciergeNewDataReceived", object:self)
           else
             if debug?
@@ -92,7 +92,7 @@ class MotionConcierge
     end
 
     def last_fetch
-      NSUserDefaults.standardUserDefaults.integerForKey("motion_concierge_last_data_check")
+      NSUserDefaults.standardUserDefaults.integerForKey("motion_concierge_last_data_check") || 0
     end
 
     # Debugging
