@@ -1,6 +1,7 @@
 # motion-concierge
 
 [![Build Status](https://travis-ci.org/OTGApps/motion-concierge.svg)](https://travis-ci.org/OTGApps/motion-concierge)
+[![Gem Version](https://badge.fury.io/rb/motion-concierge.png)](http://badge.fury.io/rb/motion-concierge)
 
 motion-concierge is your personal data concierge! Just provide a file name, and network url, and set up some basic rules regarding when to download the data and the concierge will automatically fetch your data for you from the web!
 
